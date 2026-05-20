@@ -15,13 +15,14 @@ from function_tools import tools
 # )
 
 USER_PROMPT="Hi, I am Daniel from Acme Corp. Why is invoice INV-100 for $500? We have overages waived on our Pro plan, My email is hello@acmecorp.com"
+#added user's email as get_client_contract tool expects it, if no email provided :- asks for email to confirm
 
-limit={
+limit={ #maximum tool calls allowed (default 2)
     "get_invoice_details": 2,
     "get_client_contract": 2,
 }
 
-current={
+current={ #current number of tool calls
     "get_invoice_details": 0,
     "get_client_contract": 0,
 }
