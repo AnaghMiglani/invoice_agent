@@ -216,6 +216,25 @@ Execution limits prevent:
 Tool calls which can be made by invoice agent were also limited using "limit" dictionary.
 To prevent agent from calling same tool again and again, especially when tool keep failing
 
+## Invalid Invoice-ID Handling & Guardrail Handling
+
+The project also includes handling for a few edge cases:
+
+- Invalid or non-existing invoice IDs
+- Prompt injection / malicious guardrail checks
+
+### Invalid Invoice-ID Handling
+
+<p align="center">
+  <img src="./assets/screenshots/INV-200.png" alt="Invalid Invoice ID Handling" width="750">
+</p>
+
+### Guardrail Handling
+
+<p align="center">
+  <img src="./assets/screenshots/guardrail_check.png" alt="Guardrail Handling" width="750">
+</p>
+
 ## If Given More Time
 
 - Add a seperate validator layer to verify that generated emails are professional, safe, properly formatted, and do not expose internal data.
