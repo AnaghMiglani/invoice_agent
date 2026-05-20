@@ -37,7 +37,7 @@ def guardrail_llm(user_prompt: str, raw_run_info: dict) -> bool:
         top_p=1,
         stream=False,
     )
-    raw_run_info["guardrail_agent"]=completion
+    raw_run_info["guardrail_agent"]=completion.model_dump()
     raw_response=completion.choices[0].message.content
     # print(raw_response)
     parsed_response=json.loads(raw_response)

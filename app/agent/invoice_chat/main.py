@@ -58,6 +58,8 @@ def invoice_agent(user_prompt:str,raw_run_info:dict):
         }
     ]
 
+    raw_run_info["invoice agent"]=[m.copy() for m in messages]
+
     MAX_ITERATIONS=5
 
     for iteration in range(MAX_ITERATIONS):
@@ -68,9 +70,10 @@ def invoice_agent(user_prompt:str,raw_run_info:dict):
             tool_choice="auto",
             temperature=0.2
         )
-        raw_run_info["invoice agent"].append(resp)
+        # raw_run_info["invoice agent"].append(resp)
         message=resp.choices[0].message
         # pprint.pprint(message)
+        raw_run_info["invoice agent"].append(message.model_dump())
         messages.append(message)
 
         if not message.tool_calls:
@@ -92,7 +95,7 @@ def invoice_agent(user_prompt:str,raw_run_info:dict):
                 if not function_limit:
                     function_limit=2 #setting limit of tool call to 2 (default)
 
-                if current[function_name] >= function_limit:
+                if current[function_name] > function_limit:
                     logging.exception("Exceeded tool call limit")
                     return """
                     Thank you for contacting us, we will contact you soon!
