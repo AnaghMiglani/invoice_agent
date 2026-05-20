@@ -17,7 +17,7 @@ client=Groq(
 
 MODEL_NAME = "openai/gpt-oss-safeguard-20b"
 
-def guardrail_llm(user_prompt: str) -> bool:
+def guardrail_llm(user_prompt: str, raw_run_info: dict) -> bool:
 
     completion = client.chat.completions.create(
         model=MODEL_NAME,
@@ -37,6 +37,7 @@ def guardrail_llm(user_prompt: str) -> bool:
         top_p=1,
         stream=False,
     )
+    raw_run_info["guardrail_agent"]=completion
     raw_response=completion.choices[0].message.content
     # print(raw_response)
     parsed_response=json.loads(raw_response)

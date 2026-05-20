@@ -17,9 +17,11 @@ from app.agent.invoice_chat.function_tools import tools
 #     ChatCompletionToolMessageParam
 # )
 
-def invoice_agent(user_prompt:str):
+def invoice_agent(user_prompt:str,raw_run_info:dict):
     # USER_PROMPT="Hi, I am Daniel from Acme Corp. Why is invoice INV-100 for $500? We have overages waived on our Pro plan, My email is hello@acmecorp.com"
     #added user's email as get_client_contract tool expects it, if no email provided :- asks for email to confirm
+
+    raw_run_info["invoice agent"]=[]
 
     limit={ #maximum tool calls allowed (default 2)
         "get_invoice_details": 2,
@@ -66,6 +68,7 @@ def invoice_agent(user_prompt:str):
             tool_choice="auto",
             temperature=0.2
         )
+        raw_run_info["invoice agent"].append(resp)
         message=resp.choices[0].message
         # pprint.pprint(message)
         messages.append(message)
@@ -111,6 +114,7 @@ def invoice_agent(user_prompt:str):
                 "name": function_name,
                 "content": json.dumps(function_response)
             })
+            raw_run_info["invoice agent"].append(messages[-1])
     return """
         Thank you for contacting us, we will contact you soon!
         Best Regards,
