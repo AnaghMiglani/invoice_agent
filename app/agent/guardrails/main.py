@@ -3,7 +3,7 @@ import dotenv
 import os
 import json
 
-from input_guardrails_config import (
+from app.agent.guardrails.input_guardrails_config import (
     response_format,
     system_prompt
 )

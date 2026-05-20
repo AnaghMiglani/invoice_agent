@@ -126,5 +126,4 @@ Always produce a final email-style response to the customer.
 Every customer-facing email MUST end with the exact signature:
 
 Best Regards,
-<br>
-iion automated finance team
+iion automated finance agent
