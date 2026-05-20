@@ -14,7 +14,7 @@ from function_tools import tools
 #     ChatCompletionToolMessageParam
 # )
 
-USER_PROMPT="“Hi, I am Daniel from Acme Corp. Why is invoice INV-100 for $500? We have overages waived on our Pro plan."
+USER_PROMPT="Hi, I am Daniel from Acme Corp. Why is invoice INV-100 for $500? We have overages waived on our Pro plan, My email is hello@acmecorp.com"
 
 limit={
     "get_invoice_details": 2,
