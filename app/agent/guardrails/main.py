@@ -10,7 +10,10 @@ from input_guardrails_format import (
 
 dotenv.load_dotenv()
 
-client=Groq(api_key=os.getenv("GROQ_API_KEY"))
+client=Groq(
+    api_key=os.getenv("GROQ_API_KEY"),
+    max_retries=2,
+)
 
 MODEL_NAME = "openai/gpt-oss-safeguard-20b"
 
@@ -32,7 +35,7 @@ def guardrail_llm(user_prompt: str) -> bool:
         temperature=0,
         # max_completion_tokens=50,
         top_p=1,
-        stream=False
+        stream=False,
     )
     raw_response=completion.choices[0].message.content
     # print(raw_response)
