@@ -5,7 +5,12 @@ import os
 import json
 
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+logger=logging.getLogger(__name__)
 
 from app.agent.invoice_chat.invoice_chat_config import system_prompt
 from app.tool_with_retry.invoice_tool_retries import get_invoice_details,get_client_contract
@@ -17,11 +22,12 @@ from app.agent.invoice_chat.function_tools import tools
 #     ChatCompletionToolMessageParam
 # )
 
-def invoice_agent(user_prompt:str,raw_run_info:dict):
+def invoice_agent(user_prompt:str,raw_run_info:dict,run_trace:dict):
     # USER_PROMPT="Hi, I am Daniel from Acme Corp. Why is invoice INV-100 for $500? We have overages waived on our Pro plan, My email is hello@acmecorp.com"
     #added user's email as get_client_contract tool expects it, if no email provided :- asks for email to confirm
 
     raw_run_info["invoice agent"]=[]
+    run_trace["invoice agent"]=[]
 
     limit={ #maximum tool calls allowed (default 2)
         "get_invoice_details": 2,
@@ -59,6 +65,7 @@ def invoice_agent(user_prompt:str,raw_run_info:dict):
     ]
 
     raw_run_info["invoice agent"]=[m.copy() for m in messages]
+    run_trace["invoice agent"]=[m.copy() for m in messages]
 
     MAX_ITERATIONS=5
 
@@ -74,6 +81,9 @@ def invoice_agent(user_prompt:str,raw_run_info:dict):
         message=resp.choices[0].message
         # pprint.pprint(message)
         raw_run_info["invoice agent"].append(message.model_dump())
+        run_trace["invoice agent"].append(message.model_dump())
+        run_trace["token"]["invoice_token"]["prompt"]+=resp.usage.prompt_tokens
+        run_trace["token"]["invoice_token"]["completion"]+=resp.usage.completion_tokens
         messages.append(message)
 
         if not message.tool_calls:
@@ -118,6 +128,7 @@ def invoice_agent(user_prompt:str,raw_run_info:dict):
                 "content": json.dumps(function_response)
             })
             raw_run_info["invoice agent"].append(messages[-1])
+            run_trace["invoice agent"].append(messages[-1])
     return """
         Thank you for contacting us, we will contact you soon!
         Best Regards,

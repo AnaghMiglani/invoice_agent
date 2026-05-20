@@ -13,22 +13,39 @@ Best Regards,
 iion automated finance team
 """
 reply=GUARDRAIL_MESSAGE
-run_info={}
+run_trace={}
 raw_run_info={}
 
 raw_run_info["USER_PROMPT"]=user_prompt
-run_info["USER_PROMPT"]=user_prompt
+run_trace["USER_PROMPT"]=user_prompt
+run_trace["token"]={}
+run_trace["token"]["invoice_token"]={}
+run_trace["token"]["guardrail"]={}
+run_trace["token"]["invoice_token"]["prompt"]=0
+run_trace["token"]["invoice_token"]["completion"]=0
 print("USER PROMPT: ",user_prompt)
 
-approve=guardrail_llm(user_prompt,raw_run_info)
+try:
+    approve=guardrail_llm(user_prompt,raw_run_info,run_trace)
 
-if not approve:
-    print(GUARDRAIL_MESSAGE)
-else:
-    reply=invoice_agent(user_prompt,raw_run_info)
-    print(reply)
+    if not approve:
+        print(GUARDRAIL_MESSAGE)
+    else:
+        reply=invoice_agent(user_prompt,raw_run_info,run_trace)
+        print(reply)
 
-raw_run_info["Final Message"]=reply
-# print(raw_run_info)
-with open("raw_message_history.json","w") as f:
-    json.dump(raw_run_info, f, indent=4, default=str)
+    raw_run_info["Final Message"]=reply
+    run_trace["Final Message"]=reply
+    # print(raw_run_info)
+
+    with open("app.log","r") as f:
+        run_trace["additional logs"]=f.read()
+
+    with open("raw_message_history.json","w") as f:
+        json.dump(raw_run_info, f, indent=4, default=str)
+
+    with open("execution_trace.json","w") as f:
+        json.dump(run_trace, f, indent=4, default=str)
+
+except Exception as e:
+    print("error: ",e)

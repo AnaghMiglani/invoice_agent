@@ -1,5 +1,15 @@
 {
     "USER_PROMPT": "Hi, I am Daniel from Acme Corp. Why is invoice INV-100 for $500? We have overages waived on our Pro plan, My email is hello@acmecorp.com",
+    "token": {
+        "invoice_token": {
+            "prompt": 2692,
+            "completion": 411
+        },
+        "guardrail": {
+            "prompt": 717,
+            "completion": 55
+        }
+    },
     "guardrail agent": {
         "id": "chatcmpl-d07c32d0-6b54-4755-a7b4-bf635ee53a59",
         "choices": [
@@ -114,5 +124,6 @@
             "tool_calls": null
         }
     ],
-    "Final Message": "Subject: Clarification on Invoice INV\u2011100\n\nHi Daniel,\n\nThank you for reaching out.\n\nI\u2019ve reviewed the details of invoice\u202fINV\u2011100 and compared them with your Pro\u2011plan contract. Your contract specifies that overage charges are waived, yet the invoice includes a $200 overage line item in addition to the $300 platform fee, resulting in a total of $500.\n\nWe will correct this discrepancy and issue a revised invoice reflecting only the $300 platform fee. The updated invoice will be sent to you shortly.\n\nPlease let us know if you have any further questions.\n\nBest Regards,\niion automated finance agent"
+    "Final Message": "Subject: Clarification on Invoice INV\u2011100\n\nHi Daniel,\n\nThank you for reaching out.\n\nI\u2019ve reviewed the details of invoice\u202fINV\u2011100 and compared them with your Pro\u2011plan contract. Your contract specifies that overage charges are waived, yet the invoice includes a $200 overage line item in addition to the $300 platform fee, resulting in a total of $500.\n\nWe will correct this discrepancy and issue a revised invoice reflecting only the $300 platform fee. The updated invoice will be sent to you shortly.\n\nPlease let us know if you have any further questions.\n\nBest Regards,\niion automated finance agent",
+    "additional logs": "2026-05-20 22:13:02,652 | INFO | Loaded system prompt for invoice agent successfully.\n2026-05-20 22:13:02,656 | INFO | Loaded guardrail prompt successfully.\n2026-05-20 22:13:19,236 | INFO | Loaded system prompt for invoice agent successfully.\n2026-05-20 22:13:19,240 | INFO | Loaded guardrail prompt successfully.\n2026-05-20 22:14:20,901 | INFO | Loaded system prompt for invoice agent successfully.\n2026-05-20 22:14:20,904 | INFO | Loaded guardrail prompt successfully.\n2026-05-20 22:14:21,521 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:14:22,110 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:14:22,362 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:14:23,132 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:17:22,306 | INFO | Loaded system prompt for invoice agent successfully.\n2026-05-20 22:17:22,309 | INFO | Loaded guardrail prompt successfully.\n2026-05-20 22:17:22,897 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:17:23,462 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:17:23,719 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n2026-05-20 22:17:24,452 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions \"HTTP/1.1 200 OK\"\n"
 }

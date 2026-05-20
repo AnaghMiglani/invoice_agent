@@ -1,7 +1,12 @@
 from pathlib import Path
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+logger=logging.getLogger(__name__)
 
 DEFAULT_SYSTEM_PROMPT="""
 You are an invoice reconciliation assistant.

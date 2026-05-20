@@ -1,8 +1,12 @@
 import json
 from pathlib import Path
 import logging
-
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+logger=logging.getLogger(__name__)
 
 response_format={
     "type": "json_schema",
